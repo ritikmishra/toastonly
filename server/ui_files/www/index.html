@@ -23,7 +23,7 @@
         <h1 class="title">Toast</h1>
 
         <form enctype="multipart/form-data" action="/upload" method="post" id="uploadForm">
-          <input type="file" class="file" id="attachment" name="toast" style="display: none;" nv-file-select uploader="uploader" onchange="fileSelected(this)"/>
+          <input type="file" class="file" id="attachment" name="toast" style="display: none;" accept="image/*" nv-file-select uploader="uploader" onchange="fileSelected(this)"/>
           <input type="button" class="button button-royal" id="btnAttachment" onclick="openAttachment()" value="Upload"/>
         </form>
       </ion-header-bar>

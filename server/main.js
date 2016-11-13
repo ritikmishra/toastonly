@@ -30,13 +30,13 @@ app.post('/upload', upload.single('toast'), function(req, res) {
       clarifai.models.predict(Clarifai.FOOD_MODEL, base64Image).then(
         function(response) {
           var i = 0;
-          res.send("Sucessful upload")
+          res.send("<h2 style='font-family: Helvetica'>Sucessful upload</h2><a href='http://localhost:5000'>Go back to see images</a>")
           var descriptors = response.data.outputs[0].data.concepts
           for(i = 0; i<10; i++){
-            if(((descriptors[i].name == 'bread')||(descriptors[i].name == 'toast'))&&(descriptors[i].value > '0.95')){
+            if(((descriptors[i].name == 'bread')||(descriptors[i].name == 'toast'))&&(descriptors[i].value > '0.85')){
               var toast = __dirname + '/accesibleimages/' + req.file.filename + path.extname(req.file.originalname);
               fs.renameSync(file, toast);
-              toastjson.images.push({"image": "http://localhost:5000/" + req.file.filename + path.extname(req.file.originalname), "butters": 0})
+              toastjson.images.unshift({"image": "http://localhost:5000/" + req.file.filename + path.extname(req.file.originalname), "butters": 0})
               fs.writeFile('./toast.json', JSON.stringify(toastjson, null, 2), function(err, callback){
                 if(err) throw err;
               })
