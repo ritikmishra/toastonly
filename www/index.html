@@ -37,6 +37,11 @@
     <ion-pane>
       <ion-header-bar class="bar-energized">
         <h1 class="title">Toast</h1>
+        <input type="file" class="file" id="attachment" name="attachment" style="display: none;" onchange="fileSelected(this)"/>
+<input type="button" class="button button-positive" id="btnAttachment" onclick="openAttachment()" value="Upload"/>
+        <!-- <input type="submit" value="Upload"
+    onclick="window.location='/my/link/location';" <button class="button button-positive">
+    </button> -->
       </ion-header-bar>
       <ion-content>
         <div ng-repeat="toast in toasts">
@@ -47,6 +52,9 @@
           <img class='toast' src="http://chicago-toast.com/img/big-toast-img.png">
           <img class='toast' src="https://hamfistedtales.files.wordpress.com/2016/07/toast.jpg"> -->
         </div>
+
+        <!-- <button class="button button-positive">button-positive
+        </button> -->
 
       </ion-content>
     </ion-pane>

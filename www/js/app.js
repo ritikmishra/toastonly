@@ -13,6 +13,14 @@ ionicApp.controller('MyController', ['$scope', function($scope){
                 {image: "https://hamfistedtales.files.wordpress.com/2016/07/toast.jpg"}]
 }])
 
+function openAttachment() {
+  document.getElementById('attachment').click();
+}
+
+function fileSelected(input){
+  //document.getElementById('btnAttachment').value = "File: " + input.files[0].name
+}
+
 ionicApp.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
