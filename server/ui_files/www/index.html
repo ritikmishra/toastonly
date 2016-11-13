@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link rel="manifest" href="manifest.json">
+
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="cordova.js"></script>
+
+    <script src="js/app.js"></script>
+  </head>
+  <body ng-app="starter" ng-controller='MyController'>
+
+    <ion-pane>
+      <ion-header-bar class="bar-energized">
+        <h1 class="title">Toast</h1>
+
+        <form enctype="multipart/form-data" action="/upload" method="post" id="uploadForm">
+          <input type="file" class="file" id="attachment" name="toast" style="display: none;" nv-file-select uploader="uploader" onchange="fileSelected(this)"/>
+          <input type="button" class="button button-royal" id="btnAttachment" onclick="openAttachment()" value="Upload"/>
+        </form>
+      </ion-header-bar>
+
+      <ion-content>
+        <ion-card ng-repeat="toast in toasts">
+          <ion-card-header>
+            <img class='toast' ng-src="{{toast.image}}" />
+          </ion-card-header>
+        </ion-card>
+
+
+      </ion-content>
+    </ion-pane>
+  </body>
+</html>
