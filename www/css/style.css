@@ -1,0 +1,9 @@
+/* Empty. Add your own CSS if you like */
+
+.toast{
+  float: left;
+  height: 10em;
+}
+.title{
+  font-family: cursive;
+}
