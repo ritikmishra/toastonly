@@ -30,10 +30,12 @@ app.post('/upload', upload.single('toast'), function(req, res) {
       clarifai.models.predict(Clarifai.FOOD_MODEL, base64Image).then(
         function(response) {
           var i = 0;
-          res.send("<h2 style='font-family: Helvetica'>Sucessful upload</h2><a href='http://localhost:5000'>Go back to see images</a>")
+          res.send("<div  style='font-family: Helvetica; text-align: center'><h2>Sucessful upload</h2><p>Please beware that we ban unsafe images on our website. Examples of unsafe images include pictures of anything that isn't toast.</p><a href='http://localhost:5000'>Go back to see images</a></div>")
           var descriptors = response.data.outputs[0].data.concepts
           for(i = 0; i<10; i++){
-            if(((descriptors[i].name == 'bread')||(descriptors[i].name == 'toast'))&&(descriptors[i].value > '0.85')){
+            console.log(descriptors[i])
+            if(((descriptors[i].name == 'bread')||(descriptors[i].name == 'toast'))&&(descriptors[i].value > '0.80')){
+
               var toast = __dirname + '/accesibleimages/' + req.file.filename + path.extname(req.file.originalname);
               fs.renameSync(file, toast);
               toastjson.images.unshift({"image": "http://localhost:5000/" + req.file.filename + path.extname(req.file.originalname), "butters": 0})
@@ -45,10 +47,12 @@ app.post('/upload', upload.single('toast'), function(req, res) {
             }
 
           }
+
+
           //res.send(response.data.outputs[0].data);
         },
         function(err) {
-          res.send("we did a wrong")
+          res.send("An error has occurede. We remain unsure whether or not your content is safe.\n\n" + err)
           console.log(err);
         }
       );
