@@ -1,0 +1,12 @@
+/* Empty. Add your own CSS if you like */
+.button{
+  align-self: auto;
+}
+
+.toast{
+  float: left;
+  height: 10em;
+}
+.title{
+  font-family: cursive;
+}
