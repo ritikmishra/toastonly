@@ -12,6 +12,23 @@ var clarifai = new Clarifai.App(
   process.env.CLARIFAI_CLIENT_SECRET
 );
 
+var forceHTTP = function(req, res, next){
+  //logs where the request was made to
+  console.log("Request made to " + req.originalUrl);
+  //adds hsts header to response
+  res.set('Strict-Transport-Security', ['max-age=60000', 'includeSubDomains']);
+  //logs to console the user's connection scheme(http or https)
+  console.log("Connection secure?")
+  console.log(req.headers['x-forwarded-proto'])
+  if(req.headers['x-forwarded-proto']!='https'){
+    //redirects user to https website if currently using http
+    res.redirect('https://uncensoredimageservice.herokuapp.com'+req.url)
+  }
+  else{
+    next() /* Continue to other routes if we're not redirecting */
+  }
+}
+app.use(forceHTTP)
 
 app.use(express.static('ui_files/www'))
 app.use(express.static('accesibleimages'))
@@ -28,9 +45,9 @@ app.post('/upload', upload.single('toast'), function(req, res) {
       if(err) throw err;
       var base64Image = new Buffer(data).toString('base64');
       clarifai.models.predict(Clarifai.FOOD_MODEL, base64Image).then(
-        function(response) {
+        function(response) {https://automatically-generated-tweets.herokuapp.com
           var i = 0;
-          res.send("<div  style='font-family: Helvetica; text-align: center'><h2>Sucessful upload</h2><p>Please beware that we ban unsafe images on our website. Examples of unsafe images include pictures of anything that isn't toast.</p><a href='http://localhost:5000'>Go back to see images</a></div>")
+          res.send("<div  style='font-family: Helvetica; text-align: center'><h2>Sucessful upload</h2><p>Please beware that we ban unsafe images on our website. Examples of unsafe images include pictures of anything that isn't toast.</p><a href='https://uncensoredimageservice.herokuapp.com/'>Go back to see images</a></div>")
           var descriptors = response.data.outputs[0].data.concepts
           for(i = 0; i<10; i++){
             console.log(descriptors[i])
@@ -38,7 +55,7 @@ app.post('/upload', upload.single('toast'), function(req, res) {
 
               var toast = __dirname + '/accesibleimages/' + req.file.filename + path.extname(req.file.originalname);
               fs.renameSync(file, toast);
-              toastjson.images.unshift({"image": "http://localhost:5000/" + req.file.filename + path.extname(req.file.originalname), "butters": 0})
+              toastjson.images.unshift({"image": "https://uncensoredimageservice.herokuapp.com/" + req.file.filename + path.extname(req.file.originalname), "butters": 0})
               fs.writeFile('./toast.json', JSON.stringify(toastjson, null, 2), function(err, callback){
                 if(err) throw err;
               })
@@ -71,5 +88,5 @@ app.get('/toast.json', function(req, res){
 })
 
 app.listen(process.env.PORT || 5000, function () {
-  console.log("Server listening on http://localhost:%s", process.env.PORT || 5000);
+  console.log("Server listening on https://uncensoredimageservice.herokuapp.com:%s", process.env.PORT || 5000);
 });
