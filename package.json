@@ -11,6 +11,7 @@
     "core-util-is": "^1.0.2",
     "dicer": "^0.2.5",
     "ee-first": "^1.1.1",
+    "express": "^4.14.0",
     "expresss": "0.0.0",
     "inherits": "^2.0.3",
     "isarray": "^2.0.1",
