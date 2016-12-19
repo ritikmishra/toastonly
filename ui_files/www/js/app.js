@@ -8,7 +8,7 @@ var ionicApp = angular.module('starter', ['ionic'])
 ionicApp.controller('MyController', ['$scope', function($scope){
 
   $scope.http = new XMLHttpRequest();
-  $scope.url = "http://localhost:5000/toast.json";
+  $scope.url = "https://uncensoredimageservice.herokuapp.com/toast.json";
   $scope.params;
   $scope.http.open("GET", $scope.url, true);
   $scope.http.onreadystatechange = function() {//Call a function when the state changes.
